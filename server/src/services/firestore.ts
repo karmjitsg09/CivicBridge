@@ -150,10 +150,37 @@ class ReportStorageService {
 
     try {
       const projectId = process.env.GOOGLE_CLOUD_PROJECT || process.env.FIRESTORE_PROJECT_ID;
-      
-      // Instantiate Firestore with Application Default Credentials or specified Project ID
+      const clientEmail = process.env.FIRESTORE_CLIENT_EMAIL || process.env.GOOGLE_CLIENT_EMAIL;
+      const rawPrivateKey = process.env.FIRESTORE_PRIVATE_KEY || process.env.GOOGLE_PRIVATE_KEY;
+      const rawCredentialsJson = process.env.GOOGLE_CREDENTIALS || process.env.FIRESTORE_CREDENTIALS;
+
+      let credentials: { client_email: string; private_key: string } | undefined;
+
+      // 1. Support raw JSON string directly from Vercel environment variables
+      if (rawCredentialsJson) {
+        try {
+          const parsed = JSON.parse(rawCredentialsJson);
+          if (parsed.client_email && parsed.private_key) {
+            credentials = {
+              client_email: parsed.client_email,
+              private_key: parsed.private_key.replace(/\\n/g, '\n'),
+            };
+          }
+        } catch {
+          console.warn('[CivicBridge Storage] Failed to parse GOOGLE_CREDENTIALS JSON string from environment.');
+        }
+      } else if (clientEmail && rawPrivateKey) {
+        // 2. Support discrete client_email and private_key environment variables
+        credentials = {
+          client_email: clientEmail,
+          private_key: rawPrivateKey.replace(/\\n/g, '\n'),
+        };
+      }
+
+      // Instantiate Firestore with in-memory credentials (for Vercel serverless) or default ADC (for Google Cloud)
       this.firestore = new Firestore({
         projectId: projectId || undefined,
+        credentials: credentials || undefined,
       });
 
       // Probe Firestore connectivity asynchronously

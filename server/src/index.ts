@@ -25,31 +25,38 @@ app.use((_req: Request, res: Response, next: NextFunction) => {
 });
 
 // 3. CORS Configuration
-// In production: strict origin matching (never '*'). In development: localhost origins.
-const getCorsOrigin = () => {
-  const customOrigin = process.env.CORS_ORIGIN || process.env.CLIENT_ORIGIN;
-  if (isProduction) {
-    if (customOrigin) {
-      // Support comma-separated origins if provided
-      const origins = customOrigin.split(',').map((o) => o.trim());
-      return origins.length === 1 ? origins[0] : origins;
-    }
-    // If no explicit origin set in production, enforce same-origin / secure fallback
-    return false;
-  }
-  // Development mode allowed origins
-  return [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://localhost:8080',
-  ];
-};
-
+// Dynamic origin matching: allows same-origin, Vercel app domains, and explicit CORS_ORIGIN without ever using wildcard '*' in production.
 app.use(
   cors({
-    origin: getCorsOrigin(),
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. mobile apps, curl, server-to-server, or same-origin browser calls)
+      if (!origin) return callback(null, true);
+
+      const customOrigin = process.env.CORS_ORIGIN || process.env.CLIENT_ORIGIN;
+      if (customOrigin) {
+        const allowed = customOrigin.split(',').map((o) => o.trim());
+        if (allowed.includes(origin)) return callback(null, true);
+      }
+
+      // Allow any Vercel preview or production deployment domain for this application
+      if (origin.endsWith('.vercel.app')) {
+        return callback(null, true);
+      }
+
+      if (!isProduction) {
+        const devOrigins = [
+          'http://localhost:5173',
+          'http://127.0.0.1:5173',
+          'http://localhost:3000',
+          'http://localhost:3001',
+          'http://localhost:8080',
+        ];
+        if (devOrigins.includes(origin)) return callback(null, true);
+      }
+
+      // Reject unauthorized cross-origin requests
+      return callback(null, false);
+    },
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-session-id'],
     credentials: false, // Prevent unnecessary credential exposure
@@ -62,8 +69,8 @@ app.use(
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
-// 5. Health Check Endpoint for Cloud Run and monitoring
-app.get('/api/health', (_req: Request, res: Response) => {
+// 5. Health Check Endpoint for Cloud Run, Vercel, and monitoring
+const healthHandler = (_req: Request, res: Response) => {
   res.status(200).json({
     status: 'ok',
     service: 'civicbridge-backend',
@@ -72,11 +79,16 @@ app.get('/api/health', (_req: Request, res: Response) => {
     environment: isProduction ? 'production' : 'development',
     storageMode: reportStorage.getStorageType(),
   });
-});
+};
 
-// 6. Mount Routers
+app.get('/api/health', healthHandler);
+app.get('/health', healthHandler);
+
+// 6. Mount Routers (Dual-mounted to support both /api/* and direct serverless /* calls)
 app.use('/api/analyze', analyzeRouter);
+app.use('/analyze', analyzeRouter);
 app.use('/api/reports', reportsRouter);
+app.use('/reports', reportsRouter);
 
 // 7. 404 Handler
 app.use((_req: Request, res: Response) => {
@@ -91,22 +103,24 @@ app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   });
 });
 
-// 9. Server Initialization & Graceful Shutdown
-const server = app.listen(port, () => {
-  console.log(`[CivicBridge Server] running on http://localhost:${port}`);
-  console.log(`[CivicBridge Server] Environment: ${isProduction ? 'production' : 'development'}`);
-  console.log(`[CivicBridge Server] Storage Mode: ${reportStorage.getStorageType()}`);
-});
-
-const gracefulShutdown = (signal: string) => {
-  console.log(`[CivicBridge Server] Received ${signal}. Closing HTTP server gracefully...`);
-  server.close(() => {
-    console.log('[CivicBridge Server] HTTP server closed cleanly.');
-    process.exit(0);
+// 9. Server Initialization (Only listen when running as a standalone server, not inside Vercel serverless functions)
+if (process.env.VERCEL !== '1') {
+  const server = app.listen(port, () => {
+    console.log(`[CivicBridge Server] running on http://localhost:${port}`);
+    console.log(`[CivicBridge Server] Environment: ${isProduction ? 'production' : 'development'}`);
+    console.log(`[CivicBridge Server] Storage Mode: ${reportStorage.getStorageType()}`);
   });
-};
 
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+  const gracefulShutdown = (signal: string) => {
+    console.log(`[CivicBridge Server] Received ${signal}. Closing HTTP server gracefully...`);
+    server.close(() => {
+      console.log('[CivicBridge Server] HTTP server closed cleanly.');
+      process.exit(0);
+    });
+  };
+
+  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+}
 
 export default app;
