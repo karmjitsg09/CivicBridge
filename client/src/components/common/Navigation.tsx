@@ -8,6 +8,7 @@ interface NavigationProps {
   onNavigate: (screen: ScreenType) => void;
   serverConnected: boolean;
   ledgerCount: number;
+  onOpenAdmin?: () => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
@@ -15,6 +16,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   onNavigate,
   serverConnected,
   ledgerCount,
+  onOpenAdmin,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -180,6 +182,16 @@ export const Navigation: React.FC<NavigationProps> = ({
         {/* Theme Switcher & Status indicator & Mobile Toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           <ThemeSwitcher />
+
+          {onOpenAdmin && (
+            <button
+              onClick={onOpenAdmin}
+              className="stitch-btn stitch-btn-ghost nav-admin-button"
+              style={{ padding: '0.5rem 0.75rem', fontSize: '0.8rem' }}
+            >
+              Admin
+            </button>
+          )}
 
           <div
             style={{

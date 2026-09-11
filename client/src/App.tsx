@@ -8,6 +8,7 @@ import { ReportEditorScreen } from './screens/ReportEditorScreen';
 import { ReportReadyScreen } from './screens/ReportReadyScreen';
 import { CivicLedgerScreen } from './screens/CivicLedgerScreen';
 import { HowItWorksScreen } from './screens/HowItWorksScreen';
+import { AdminDashboardScreen } from './screens/AdminDashboardScreen';
 import {
   CivicInputState,
   CivicAnalysisResult,
@@ -24,7 +25,9 @@ import {
 } from './services/reportsApi';
 
 export const App: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<ScreenType>('home');
+  const [currentScreen, setCurrentScreen] = useState<ScreenType>(() =>
+    window.location.pathname.startsWith('/admin') ? 'admin' : 'home'
+  );
   const [serverConnected, setServerConnected] = useState<boolean>(true);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [isGeneratingReport, setIsGeneratingReport] = useState<boolean>(false);
@@ -364,21 +367,37 @@ export const App: React.FC = () => {
     setCurrentScreen('home');
   };
 
+  const handleOpenAdmin = () => {
+    window.history.pushState({}, '', '/admin');
+    setCurrentScreen('admin');
+  };
+
+  const handleBackToCivicBridge = () => {
+    window.history.pushState({}, '', '/');
+    setCurrentScreen('home');
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       {/* Navigation */}
-      <Navigation
-        currentScreen={currentScreen}
-        onNavigate={(screen) => {
-          if (screen === 'home') setEditingReport(null);
-          setCurrentScreen(screen);
-        }}
-        serverConnected={serverConnected}
-        ledgerCount={ledgerReports.length}
-      />
+      {currentScreen !== 'admin' && (
+        <Navigation
+          currentScreen={currentScreen}
+          onNavigate={(screen) => {
+            if (screen === 'home') setEditingReport(null);
+            setCurrentScreen(screen);
+          }}
+          serverConnected={serverConnected}
+          ledgerCount={ledgerReports.length}
+          onOpenAdmin={handleOpenAdmin}
+        />
+      )}
 
       {/* Main Content View Switcher */}
-      <main className="container" style={{ flex: 1, padding: '1.5rem' }}>
+      <main className={currentScreen === 'admin' ? '' : 'container'} style={{ flex: 1, padding: currentScreen === 'admin' ? 0 : '1.5rem' }}>
+        {currentScreen === 'admin' && (
+          <AdminDashboardScreen onBack={handleBackToCivicBridge} />
+        )}
         {currentScreen === 'home' && (
           <HomeScreen
             inputState={inputState}
@@ -468,7 +487,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer
+      {currentScreen !== 'admin' && <footer
         style={{
           borderTop: '1px solid var(--nav-border)',
           background: 'var(--nav-bg)',
@@ -506,7 +525,7 @@ export const App: React.FC = () => {
             </button>
           </div>
         </div>
-      </footer>
+      </footer>}
     </div>
   );
 };

@@ -86,7 +86,11 @@ export async function fetchReports(filters?: {
   }
 
   const data = await response.json();
-  const mappedReports: CivicReport[] = (data.reports || []).map((r: any) => ({
+  if (!data || !Array.isArray(data.reports)) {
+    throw new Error('Civic storage service returned an invalid report list. Please try again.');
+  }
+
+  const mappedReports: CivicReport[] = data.reports.map((r: any) => ({
     ...r,
     title: r.issueTitle || r.title,
     description: r.detailedDescription || r.description,

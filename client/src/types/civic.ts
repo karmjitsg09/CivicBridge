@@ -101,4 +101,5 @@ export type ScreenType =
   | 'report_editor'
   | 'report_ready'
   | 'ledger'
-  | 'how_it_works';
+  | 'how_it_works'
+  | 'admin';
