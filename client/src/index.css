@@ -1,0 +1,546 @@
+:root {
+  /* ==========================================================================
+     Surface-Aware Semantic Tokens (Light Mode)
+     ========================================================================== */
+
+  /* Page Surface (Light Mode) */
+  --bg-page: #f8fafc;
+  --bg-page-subtle: #f1f5f9;
+  --text-on-page: #0f172a;
+  --text-on-page-secondary: #334155;
+  --text-on-page-muted: #64748b;
+
+  /* Navigation */
+  --nav-bg: #ffffff;
+  --nav-border: #e2e8f0;
+  --nav-text: #0f172a;
+  --nav-text-muted: #64748b;
+
+  /* Light Card Surface & Text (Both Light & Dark Mode) */
+  --surface-card: #ffffff;
+  --surface-card-subtle: #f8fafc;
+  --surface-card-border: #e2e8f0;
+  --surface-card-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+
+  --text-on-card-primary: #0f172a;      /* Dark Navy (#0f172a / #10243e) */
+  --text-on-card-secondary: #334155;    /* Dark Slate */
+  --text-on-card-muted: #475569;        /* Medium Slate Gray */
+  --text-on-card-subtle: #64748b;       /* Muted Slate */
+  --text-on-card-label: #1e293b;        /* Dark Slate Label */
+
+  /* Elements inside White Cards */
+  --bg-card-subtle: #f8fafc;
+  --border-card-subtle: #e2e8f0;
+  --bg-card-chip: #f1f5f9;
+  --border-card-chip: #cbd5e1;
+  --text-card-chip: #0f172a;
+
+  /* Card Accent Tints (Readable on White Cards) */
+  --card-tint-blue-bg: #eff6ff;
+  --card-tint-blue-border: rgba(37, 99, 235, 0.25);
+  --card-tint-blue-text: #1d4ed8;
+
+  --card-tint-cyan-bg: #ecfeff;
+  --card-tint-cyan-border: rgba(6, 182, 212, 0.3);
+  --card-tint-cyan-text: #0e7490;
+
+  --card-tint-emerald-bg: #ecfdf5;
+  --card-tint-emerald-border: rgba(5, 150, 105, 0.25);
+  --card-tint-emerald-text: #047857;
+
+  --card-tint-coral-bg: #fff7ed;
+  --card-tint-coral-border: rgba(234, 88, 12, 0.3);
+  --card-tint-coral-text: #c2410c;
+
+  --card-tint-yellow-bg: #fefce8;
+  --card-tint-yellow-border: rgba(234, 179, 8, 0.35);
+  --card-tint-yellow-text: #a16207;
+
+  --card-tint-violet-bg: #f5f3ff;
+  --card-tint-violet-border: rgba(124, 58, 237, 0.25);
+  --card-tint-violet-text: #6d28d9;
+
+  --card-tint-magenta-bg: #fdf4ff;
+  --card-tint-magenta-border: rgba(192, 38, 211, 0.25);
+  --card-tint-magenta-text: #a21caf;
+
+  /* Global legacy fallbacks */
+  --bg-surface: var(--surface-card);
+  --bg-surface-hover: #f8fafc;
+  --bg-surface-elevated: #ffffff;
+  --bg-input: #ffffff;
+
+  /* Brand Colors */
+  --color-cobalt: #1d4ed8;
+  --color-cobalt-light: #eff6ff;
+  --color-sky: #0284c7;
+  --color-sky-light: #f0f9ff;
+  --color-cyan: #06b6d4;
+  --color-cyan-light: #ecfeff;
+  --color-violet: #7c3aed;
+  --color-violet-light: #f5f3ff;
+  --color-magenta: #c026d3;
+  --color-magenta-light: #fdf4ff;
+  --color-coral: #ea580c;
+  --color-coral-light: #fff7ed;
+  --color-yellow: #eab308;
+  --color-yellow-light: #fefce8;
+  --color-emerald: #059669;
+  --color-emerald-light: #ecfdf5;
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 50%, #c026d3 100%);
+  --gradient-cta: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+  --gradient-accent: linear-gradient(135deg, #f97316 0%, #db2777 100%);
+  --gradient-bridge: linear-gradient(90deg, #2563eb, #7c3aed, #ec4899, #06b6d4);
+  --gradient-subtle: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  --gradient-mesh: radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.07) 0px, transparent 50%),
+                   radial-gradient(at 100% 0%, rgba(192, 38, 211, 0.07) 0px, transparent 50%),
+                   radial-gradient(at 50% 100%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
+
+  /* Text Colors */
+  --text-main: var(--text-on-page);
+  --text-muted: var(--text-on-page-muted);
+  --text-subtle: #94a3b8;
+  --text-white: #ffffff;
+
+  /* Borders & Shadows */
+  --border-light: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-accent: rgba(37, 99, 235, 0.25);
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  --shadow-glow: 0 8px 24px -4px rgba(37, 99, 235, 0.25);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Civic Intelligence Console (Dark Mode) */
+html.dark {
+  /* ==========================================================================
+     Surface-Aware Semantic Tokens (Dark Mode)
+     DARK PAGE SURFACE + WHITE CARD SURFACE + DARK TEXT ON LIGHT CARDS!
+     ========================================================================== */
+
+  /* Page Dark Theme */
+  --bg-page: #061525;
+  --bg-page-subtle: #0c1e33;
+  --text-on-page: #f8fafc;
+  --text-on-page-secondary: #cbd5e1;
+  --text-on-page-muted: #94a3b8;
+
+  /* Navigation in Dark Mode */
+  --nav-bg: #091a2e;
+  --nav-border: rgba(255, 255, 255, 0.1);
+  --nav-text: #f8fafc;
+  --nav-text-muted: #94a3b8;
+
+  /* Light Card Surface in Dark Mode */
+  --surface-card: #ffffff;
+  --surface-card-subtle: #f8fafc;
+  --surface-card-border: #cbd5e1;
+  --surface-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+
+  --text-on-card-primary: #0f172a;      /* Dark Navy (#0f172a / #10243e) */
+  --text-on-card-secondary: #334155;    /* Dark Slate */
+  --text-on-card-muted: #475569;        /* Medium Slate Gray */
+  --text-on-card-subtle: #64748b;       /* Muted Slate */
+  --text-on-card-label: #1e293b;        /* Dark Slate Label */
+
+  /* Elements inside White Cards */
+  --bg-card-subtle: #f8fafc;
+  --border-card-subtle: #cbd5e1;
+  --bg-card-chip: #f1f5f9;
+  --border-card-chip: #cbd5e1;
+  --text-card-chip: #0f172a;
+
+  /* Card Accent Tints (High Contrast on White Cards in Dark Mode) */
+  --card-tint-blue-bg: #eff6ff;
+  --card-tint-blue-border: rgba(37, 99, 235, 0.35);
+  --card-tint-blue-text: #1d4ed8;
+
+  --card-tint-cyan-bg: #ecfeff;
+  --card-tint-cyan-border: rgba(6, 182, 212, 0.4);
+  --card-tint-cyan-text: #0e7490;
+
+  --card-tint-emerald-bg: #ecfdf5;
+  --card-tint-emerald-border: rgba(5, 150, 105, 0.35);
+  --card-tint-emerald-text: #047857;
+
+  --card-tint-coral-bg: #fff7ed;
+  --card-tint-coral-border: rgba(234, 88, 12, 0.4);
+  --card-tint-coral-text: #c2410c;
+
+  --card-tint-yellow-bg: #fefce8;
+  --card-tint-yellow-border: rgba(234, 179, 8, 0.4);
+  --card-tint-yellow-text: #a16207;
+
+  --card-tint-violet-bg: #f5f3ff;
+  --card-tint-violet-border: rgba(124, 58, 237, 0.35);
+  --card-tint-violet-text: #6d28d9;
+
+  --card-tint-magenta-bg: #fdf4ff;
+  --card-tint-magenta-border: rgba(192, 38, 211, 0.35);
+  --card-tint-magenta-text: #a21caf;
+
+  /* Global legacy fallbacks */
+  --bg-surface: var(--surface-card);
+  --bg-surface-hover: #f8fafc;
+  --bg-surface-elevated: #ffffff;
+  --bg-input: #ffffff;
+
+  --color-cobalt: #00d2ff;
+  --color-cobalt-light: rgba(0, 210, 255, 0.14);
+  --color-sky: #38bdf8;
+  --color-sky-light: rgba(56, 189, 248, 0.15);
+  --color-cyan: #00d2ff;
+  --color-cyan-light: rgba(0, 210, 255, 0.12);
+  --color-violet: #bdc2ff;
+  --color-violet-light: rgba(189, 194, 255, 0.14);
+  --color-magenta: #f472b6;
+  --color-magenta-light: rgba(244, 114, 182, 0.14);
+  --color-coral: #fb923c;
+  --color-coral-light: rgba(251, 146, 60, 0.15);
+  --color-yellow: #facc15;
+  --color-yellow-light: rgba(250, 204, 21, 0.15);
+  --color-emerald: #34d399;
+  --color-emerald-light: rgba(52, 211, 153, 0.14);
+
+  --gradient-brand: linear-gradient(135deg, #a5e7ff 0%, #00d2ff 50%, #bdc2ff 100%);
+  --gradient-cta: linear-gradient(135deg, #00d2ff 0%, #2563eb 100%);
+  --gradient-accent: linear-gradient(135deg, #fb923c 0%, #f43f5e 100%);
+  --gradient-mesh: radial-gradient(at 0% 0%, rgba(0, 210, 255, 0.08) 0px, transparent 50%),
+                   radial-gradient(at 100% 0%, rgba(189, 194, 255, 0.08) 0px, transparent 50%),
+                   radial-gradient(at 50% 100%, rgba(52, 211, 153, 0.05) 0px, transparent 50%);
+
+  --text-main: var(--text-on-page);
+  --text-muted: var(--text-on-page-muted);
+  --text-subtle: #859399;
+
+  --border-light: rgba(255, 255, 255, 0.12);
+  --border-strong: #334155;
+  --border-accent: rgba(0, 210, 255, 0.35);
+
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 14px 36px -4px rgba(0, 0, 0, 0.65), 0 4px 14px -2px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 24px -2px rgba(0, 210, 255, 0.25);
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-page);
+  background-image: var(--gradient-mesh);
+  background-attachment: fixed;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-main);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+/* Focus Visibility for Accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-cobalt);
+  outline-offset: 3px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Stitch Button Styles */
+.stitch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.stitch-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.stitch-btn-primary {
+  background: var(--gradient-cta);
+  color: var(--text-white);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+
+.stitch-btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  filter: brightness(1.05);
+}
+
+.stitch-btn-secondary {
+  background: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.stitch-btn-secondary:hover:not(:disabled) {
+  border-color: var(--color-sky);
+  background: var(--color-sky-light);
+  color: var(--color-cobalt);
+  transform: translateY(-1px);
+}
+
+.stitch-btn-cobalt {
+  background: var(--color-cobalt);
+  color: var(--text-white);
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.25);
+}
+
+.stitch-btn-cobalt:hover:not(:disabled) {
+  background: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(29, 78, 216, 0.35);
+}
+
+.stitch-btn-coral {
+  background: var(--gradient-accent);
+  color: var(--text-white);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.3);
+}
+
+.stitch-btn-coral:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.45);
+}
+
+.stitch-btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.stitch-btn-ghost:hover:not(:disabled) {
+  background: var(--bg-page-subtle);
+  color: var(--text-main);
+}
+
+/* Card Styles */
+.stitch-card {
+  background: var(--surface-card);
+  border: 1px solid var(--surface-card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--surface-card-shadow);
+  color: var(--text-on-card-secondary);
+  transition: all var(--transition-smooth);
+}
+
+.stitch-card h1,
+.stitch-card h2,
+.stitch-card h3,
+.stitch-card h4,
+.stitch-card h5,
+.stitch-card h6 {
+  color: var(--text-on-card-primary);
+}
+
+.stitch-card p {
+  color: var(--text-on-card-muted);
+}
+
+.stitch-card-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.15);
+}
+
+/* Status Pills */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.status-pill-draft {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.status-pill-ready {
+  background: var(--card-tint-blue-bg);
+  color: var(--card-tint-blue-text);
+  border: 1px solid var(--card-tint-blue-border);
+}
+
+.status-pill-progress {
+  background: var(--card-tint-yellow-bg);
+  color: var(--card-tint-yellow-text);
+  border: 1px solid var(--card-tint-yellow-border);
+}
+
+.status-pill-resolved {
+  background: var(--card-tint-emerald-bg);
+  color: var(--card-tint-emerald-text);
+  border: 1px solid var(--card-tint-emerald-border);
+}
+
+/* Severity Badges (High Contrast on White Cards) */
+.severity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+.severity-low {
+  background: var(--card-tint-emerald-bg);
+  color: var(--card-tint-emerald-text);
+  border: 1px solid var(--card-tint-emerald-border);
+}
+
+.severity-medium {
+  background: var(--card-tint-yellow-bg);
+  color: var(--card-tint-yellow-text);
+  border: 1px solid var(--card-tint-yellow-border);
+}
+
+.severity-high {
+  background: var(--card-tint-coral-bg);
+  color: var(--card-tint-coral-text);
+  border: 1px solid var(--card-tint-coral-border);
+}
+
+.severity-critical {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid rgba(220, 38, 38, 0.4);
+}
+
+/* Animations */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes bridgeBeam {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes particleFly {
+  0% { transform: translateX(0) scale(0.6); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(120px) scale(1.1); opacity: 0; }
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.bridge-animated-beam {
+  background: linear-gradient(90deg, #2563eb, #7c3aed, #ec4899, #06b6d4, #2563eb);
+  background-size: 200% 200%;
+  animation: bridgeBeam 4s linear infinite;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
