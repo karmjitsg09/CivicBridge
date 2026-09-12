@@ -40,3 +40,6 @@ Thumbs.db
 # Temp uploads
 uploads/
 scratch/
+
+.vercel
+.env*.local

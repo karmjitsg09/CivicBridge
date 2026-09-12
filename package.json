@@ -13,6 +13,9 @@
     "dev:client": "npm run dev --workspace=client",
     "build": "npm run build --workspace=server && npm run build --workspace=client",
     "build:vercel": "npm run build && node scripts/prepare-vercel-output.mjs",
+    "test": "npm run test:run",
+    "test:run": "npm run test:run --workspace=server && npm run test:run --workspace=client",
+    "test:coverage": "npm run test:coverage --workspace=server && npm run test:coverage --workspace=client",
     "build:server": "npm run build --workspace=server",
     "build:client": "npm run build --workspace=client",
     "start": "npm run start --workspace=server"

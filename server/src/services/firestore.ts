@@ -148,6 +148,10 @@ class ReportStorageService {
     if (this.initializationAttempted) return;
     this.initializationAttempted = true;
 
+    if (process.env.NODE_ENV === 'test') {
+      return;
+    }
+
     try {
       const projectId = process.env.GOOGLE_CLOUD_PROJECT || process.env.FIRESTORE_PROJECT_ID;
       const clientEmail = process.env.FIRESTORE_CLIENT_EMAIL || process.env.GOOGLE_CLIENT_EMAIL;
@@ -204,6 +208,14 @@ class ReportStorageService {
 
   getStorageType(): 'firestore' | 'local_demo' {
     return this.firestoreAvailable ? 'firestore' : 'local_demo';
+  }
+
+  /** Reset isolated local state for deterministic automated tests. */
+  resetForTests(): void {
+    if (process.env.NODE_ENV === 'test') {
+      this.localDemo = new LocalDemoStorage();
+      this.firestoreAvailable = false;
+    }
   }
 
   async saveReport(report: CivicReport): Promise<CivicReport> {
